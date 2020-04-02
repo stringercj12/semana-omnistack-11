@@ -66,8 +66,9 @@ export default StyleSheet.create({
     borderRadius: 8,
     height: 50,
     width: '48%',
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    flexDirection: 'row'
   },
 
   actionText: {
@@ -75,4 +76,9 @@ export default StyleSheet.create({
     fontSize: 15,
     fontWeight: 'bold'
   },
+  iconShared: {
+    position: 'absolute',
+    right: 10,
+    top: 10
+  }
 });

@@ -1,7 +1,7 @@
 import React from 'react';
-import { Feather } from '@expo/vector-icons';
+import { Feather, FontAwesome } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { View, Text, Image, TouchableOpacity, Linking } from 'react-native';
+import { View, Text, Image, TouchableOpacity, Linking, Share } from 'react-native';
 import * as MailComposer from 'expo-mail-composer';
 
 import logoImg from '../../assets/logo.png';
@@ -14,9 +14,16 @@ export default function Detail() {
 
   const incident = route.params.incident;
   const message = `Olá ${incident.name}, estou entrando em contato pois gostaria de ajudar no caso "${incident.title}" com o valor de ${Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(incident.value)}`;
+  const messageShared = `Olá, estou entrando em contato pois está ONG (${incident.name}) está fazendo um ótimo trabalho. Eu fiz minha parte ajudei, quem sabe queira ajudar também. O e-mail para saber mais é ${incident.email}. Vamos juntos fazer a diferença.`;
 
   function navigateBack() {
     navigation.goBack()
+  }
+
+  async function buttonShared() {
+    await Share.share({
+      message: messageShared,
+    });
   }
 
   function sendMail() {
@@ -42,6 +49,11 @@ export default function Detail() {
       </View>
 
       <View style={styles.incident}>
+
+        <TouchableOpacity onPress={buttonShared} style={styles.iconShared}>
+          <Feather name="share-2" size={28} color="#E82041" />
+        </TouchableOpacity>
+
         <Text style={[styles.incidentProperty, { marginTop: 0 }]}>ONG:</Text>
         <Text style={styles.incidentValue}>{incident.name} de {incident.city}/{incident.uf}</Text>
 
@@ -50,9 +62,9 @@ export default function Detail() {
 
         <Text style={styles.incidentProperty}>VALOR:</Text>
         <Text style={styles.incidentValue}>
-          {Intl.NumberFormat('pt-BR', { 
-            style: 'currency', 
-            currency: 'BRL' 
+          {Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
           }).format(incident.value)}
         </Text>
       </View>
@@ -65,10 +77,12 @@ export default function Detail() {
 
         <View style={styles.actions}>
           <TouchableOpacity style={styles.action} onPress={sendWhatsapp}>
+            <FontAwesome name="whatsapp" size={18} color="#fff" />
             <Text style={styles.actionText}>WhatsApp</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.action} onPress={sendMail}>
+            <Feather name="mail" size={18} color="#fff" />
             <Text style={styles.actionText}>E-mail</Text>
           </TouchableOpacity>
         </View>

@@ -47,6 +47,10 @@ export default StyleSheet.create({
     backgroundColor: '#FFF',
     marginBottom: 16,
   },
+  incidentHeader: {
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+  },
 
   incidentProperty: {
     fontSize: 14,
